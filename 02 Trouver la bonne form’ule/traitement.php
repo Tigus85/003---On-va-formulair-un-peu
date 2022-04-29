@@ -12,6 +12,7 @@
 <?php
 
 
+
 if (
   !empty($_POST['pseudo'])
   && !empty($_POST['pass'])
@@ -19,7 +20,7 @@ if (
   && $_POST['pass'] === $_POST['confirm_pass']
   && (strlen($_POST["pass"]) >=8)
   && isset($_POST["register_btn"])
-  && !ctype_alpha($_POST['pass'])
+  && (preg_match('#^[^0-9]*([0-9])#',$_POST['pass']) >= 1)
   && (preg_match('#^[^A-Z]*([A-Z])#', $_POST['pass']) >= 1)
  
 ) { ?>
