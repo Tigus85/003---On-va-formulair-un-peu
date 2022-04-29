@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Easy avec une petite form’</title>
+</head>
+<body>
+
+  <form action="./traitement.php" method="post">
+    
+    <div class="formDiv">
+        <label for="">Pseudo</label>
+        <input type="text" name="pseudo" required id="pseudo">
+    </div>
+
+    <div class="formDiv">
+        <label for="">Mot de passe</label>
+        <input type="password" name="pass" required>
+    </div>
+    <div class="formDiv">
+        <label for="">Confirmation mot de passe</label>
+        <input type="password" name="confirm_pass" required>
+    </div>
+    <div class="formDiv">
+        <input type="submit" value="Inscription" name="register_btn">
+    </div>
+</form>
+  
+</body>
+</html>

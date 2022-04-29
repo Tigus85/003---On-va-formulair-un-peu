@@ -1,0 +1,17 @@
+
+
+.formDiv {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+  }
+  
+  .destination , h2{
+    margin: 150px;
+    text-align: center;
+  }
+  
+  span{
+    color: #905;
+  }

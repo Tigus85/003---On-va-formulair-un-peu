@@ -1,11 +1,3 @@
-<?php
-
-var_dump((strlen($_POST["pass"]) >=6));
-var_dump($_POST['pass'] === $_POST['confirm_pass']);
-
-
-?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,7 +12,6 @@ var_dump($_POST['pass'] === $_POST['confirm_pass']);
 
 <?php
 
-var_dump($_POST);
 
 if (
   !empty($_POST['name'])
@@ -31,6 +22,8 @@ if (
   && $_POST['pass'] === $_POST['confirm_pass']
   && filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)
   && (strlen($_POST["pass"]) >=6)
+  && isset($_POST["register_btn"])
+ 
 ) { ?>
 
   <div class="destination">
