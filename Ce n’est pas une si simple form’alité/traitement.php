@@ -13,15 +13,16 @@
 
 
 if (
-  !empty($_POST['pseudo'])
-  && !empty($_POST['pass'])
+  
+   !empty($_POST['pass'])
   && !empty($_POST['confirm_pass'])
   && $_POST['pass'] === $_POST['confirm_pass']
   && (strlen($_POST["pass"]) >=8)
   && isset($_POST["register_btn"])
   && !ctype_alpha($_POST['pass'])
   && (preg_match('#^[^A-Z]*([A-Z])#', $_POST['pass']) >= 1)
- 
+  && filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)
+  && (strlen($_POST["email"]) <= 27)  
 ) { ?>
 
   <div class="destination">
