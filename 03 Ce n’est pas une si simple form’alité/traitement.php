@@ -1,4 +1,21 @@
+<?php
 
+$outDomaine = [
+  "@free.fr",
+  "@bidule.com",
+  "@mailbidon.net",
+  "@oulalalalalala.com"
+];
+$trueDomaine = true;
+
+for($i=0; $i<count($outDomaine);$i++){
+  if((strstr($_POST['email'],'@')) === $outDomaine[$i] ){
+    $trueDomaine = false;
+    break;
+  };
+}
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,14 +36,15 @@ if (
   && $_POST['pass'] === $_POST['confirm_pass']
   && (strlen($_POST["pass"]) >=8)
   && isset($_POST["register_btn"])
-  && !ctype_alpha($_POST['pass'])
+  && (preg_match('#^[^0-9]*([0-9])#',$_POST['pass']) >= 1)
   && (preg_match('#^[^A-Z]*([A-Z])#', $_POST['pass']) >= 1)
   && filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)
-  && (strlen($_POST["email"]) <= 27)  
+  && (strlen($_POST["email"]) <= 27)
+  && $trueDomaine 
 ) { ?>
 
   <div class="destination">
-    Bonjour <?= $_POST['pseudo']?> votre enregistrement à bien été pris en compte!
+    Bonjour <?= $_POST['email']?> votre enregistrement à bien été pris en compte!
   </div>
 
 <?php
