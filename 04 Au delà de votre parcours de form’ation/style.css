@@ -53,3 +53,9 @@ article{
   font-weight: 900;
   margin-right: 100px;
 }
+
+.blockTotal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

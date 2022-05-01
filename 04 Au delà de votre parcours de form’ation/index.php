@@ -1,11 +1,8 @@
 <?php
 
-var_dump($_GET);
 
 
-$quantity1;
-$quantity2;
-$quantity3;
+
 $promo = 0;
 $subTotal = 0;
 
@@ -42,12 +39,12 @@ $articles = [
 
 
 $price = array_column($articles,'price');
-var_dump($price);
+
 
 asort($price);
-var_dump($price);
+
 $small = array_shift($price);
-var_dump($small);
+
 
 
 ?>
@@ -68,133 +65,98 @@ var_dump($small);
   
     <section class="panier">
       <h2>Votre Panier</h2>
-
-
-      <article>
+    <?php
+      for($i=0; $i<count($articles);$i++){
+        ?>
+          <article>
         <div class ="product" >
-          <img src= <?= $articles[0]["image"] ?>  alt= <?= $articles[0]["name"] ?> >
+          <img src= <?= $articles[$i]["image"] ?>  alt= <?= $articles[$i]["name"] ?> >
           <div>
-            <div> <?= $articles[0]["name"] ?> </div>
-            <div>Prix unitaire : <?= $articles[0]["price"] ?>€</div>
+            <div> <?= $articles[$i]["name"] ?> </div>
+            <div>Prix unitaire : <?= $articles[$i]["price"] ?>€</div>
             <div>
               Quantité : 
-              <input type="number" name="quantity1" value= <?php
-              if(!isset($_GET["quantity1"])){
-                $quantity1 = 1;
-  
-              } else {
-                $quantity1 = $_GET["quantity1"];
+              <input type="number"  name='quantity<?= $i ;?>' value= <?php
+              if(!isset($_GET["quantity".$i]) || $_GET["quantity".$i] === "" ){
+                $_GET["quantity".$i] = 1;
+                
               }
   
-              echo $quantity1;
+              echo $_GET["quantity".$i];
+
+
               ?> >
-              <input type="submit" value="ok" name="validation_quantity_1">
+              <input type="submit" value="ok" name="validation_quantity">
             </div>
           </div>
         </div>
         <div class="subTotal">
           <div>Total Produit :</div>
           <div>
-            <?= " ".($articles[0]["price"] * $quantity1) . " €";?>
+            <?= " ".($articles[$i]["price"] * $_GET["quantity".$i]) . " €";?>
           </div>
         </div>
       </article>
 
-      <article>
-        <div class ="product" >
-          <img src= <?= $articles[1]["image"] ?> alt= <?= $articles[1]["name"] ?> >
-          <div>
-            <div> <?= $articles[1]["name"] ?> </div>
-            <div>Prix unitaire : <?= $articles[1]["price"] ?> €</div>
-            <div>
-              Quantité : 
-              <input type="number" name="quantity2" value= <?php
-              if(!isset($_GET["quantity2"])){
-                $quantity2 = 1;
-              } else {
-                $quantity2 =  $_GET["quantity2"];
-              }
-              echo $quantity2;
-              ?>  >
-              <input type="submit" value="ok" name="validation_quantity_2">
-            </div>
-          </div>
-        </div>
-        <div class="subTotal">
-          <div>Total Produit : </div>
-          <div>
-            <?= " ".($articles[1]["price"] * $quantity2) . " €";?>
-          </div>
-        </div>
-      </article>
 
-      <article>
-        <div class ="product" >
-          <img src=<?= $articles[2]["image"] ?> alt= <?= $articles[2]["name"] ?> >
-          <div>
-            <div> <?= $articles[2]["name"] ?>  </div>
-            <div>Prix unitaire : <?= $articles[2]["price"] ?> €</div>
-            <div>
-              Quantité : 
-              <input type="number" name="quantity3" value= <?php
-              if(!isset($_GET["quantity3"])){
-                $quantity3 = 1;
-              } else {
-                $quantity3 =  $_GET["quantity3"];
-              }
-  
-              echo $quantity3;
-              ?> >
-              <input type="submit" value="ok" name="validation_quantity_3">
-            </div>
-          </div>
-        </div>
-        <div class="subTotal">
-          <div>Total Produit : </div>
-          <div>
-            <?= " ".($articles[2]["price"]  * $quantity3) . " €";?> 
-          </div>
-        </div>
-      </article>
+    <?php
+      }
 
+      ?>
+    
     </section>
 
     <section class="total">
-      <h3>Sous-Total</h3>
-      <div> <?php
-          $subTotal = ($articles[0]["price"] * $quantity1 ) + ($articles[1]["price"]  * $quantity2 ) + ($articles[2]["price"]  * $quantity3 );
-          echo $subTotal . " €";
-      ?>
-        
-      </div>
-      <h4>Code Promo</h4>
-      <input type="text" name="promo" >
-      <h3>Total</h3>
-      <div>
-
-      <?php
-
-        $valideReduc = [
-          "NOUNOURS10" => $subTotal * 10 / 100,
-          "TROP_BIEN" => $subTotal * 30 / 100,
-          "MAIS_LE_PERE_NOEL_EXISTE" => $small * 75 / 100
-        ];
-      
-
-      foreach($valideReduc as $reduc => $percent){
-        if($_GET['promo'] === $reduc ){
-          $promo = $percent;
+      <div class="blockTotal">
+        <h3>Sous-Total</h3>
+        <div> <?php
+  
+        for($j=0; $j<count($articles); $j++){
+  
+          $subTotal += ($articles[$j]["price"] * $_GET["quantity".$j]);
+  
         }
-      }
-
-   
-
-      $total = $subTotal - $promo;
-      echo $total . " €";
-
-
-      ?>
+  
+          
+            echo $subTotal . " €";
+        ?>
+          
+        </div>
+      </div>
+      <div class="blockTotal">
+        <h4>Code Promo</h4>
+        <input type="text" name="promo" >
+      </div>
+      <div class="blockTotal" >
+        <h3>Total</h3>
+        <div>
+  
+        <?php
+  
         
+  
+          $valideReduc = [
+            "NOUNOURS10" => $subTotal * 10 / 100,
+            "TROP_BIEN" => $subTotal * 30 / 100,
+            "MAIS_LE_PERE_NOEL_EXISTE" => $small * 75 / 100
+          ];
+        
+  
+        foreach($valideReduc as $reduc => $percent){
+          if($_GET['promo'] === $reduc ){
+            $promo = $percent;
+          }
+        }
+  
+     
+  
+        $total = $subTotal - $promo;
+        echo $total . " €";
+  
+  
+        ?>
+          
+        </div>
       </div>
       <input type="submit" value="Validation" name="validation">
     </section>
