@@ -1,16 +1,8 @@
 <?php
 
-
-
-
 $promo = 0;
 $subTotal = 0;
 
-// function whoIsSmall(array $who){
-//   foreach($who as $value) {
-
-//   }
-// }
 
 $articles = [
   [
@@ -34,18 +26,9 @@ $articles = [
  
 ];
 
-
-
-
-
 $price = array_column($articles,'price');
-
-
 asort($price);
-
 $small = array_shift($price);
-
-
 
 ?>
 
@@ -91,9 +74,9 @@ $small = array_shift($price);
           </div>
         </div>
         <div class="subTotal">
-          <div>Total Produit :</div>
+          <div class="titleTotal">Total Produit :</div>
           <div>
-            <?= " ".($articles[$i]["price"] * $_GET["quantity".$i]) . " €";?>
+            <?= ($articles[$i]["price"] * $_GET["quantity".$i]) . " €";?>
           </div>
         </div>
       </article>
@@ -112,12 +95,8 @@ $small = array_shift($price);
         <div> <?php
   
         for($j=0; $j<count($articles); $j++){
-  
           $subTotal += ($articles[$j]["price"] * $_GET["quantity".$j]);
-  
         }
-  
-          
             echo $subTotal . " €";
         ?>
           
@@ -132,9 +111,7 @@ $small = array_shift($price);
         <div>
   
         <?php
-  
-        
-  
+
           $valideReduc = [
             "NOUNOURS10" => $subTotal * 10 / 100,
             "TROP_BIEN" => $subTotal * 30 / 100,
@@ -142,18 +119,14 @@ $small = array_shift($price);
           ];
         
   
-        foreach($valideReduc as $reduc => $percent){
-          if($_GET['promo'] === $reduc ){
-            $promo = $percent;
+          foreach($valideReduc as $reduc => $percent){
+            if($_GET['promo'] === $reduc ){
+              $promo = $percent;
+            }
           }
-        }
-  
-     
-  
-        $total = $subTotal - $promo;
-        echo $total . " €";
-  
-  
+    
+          $total = $subTotal - $promo;
+          echo $total . " €";
         ?>
           
         </div>
@@ -161,12 +134,7 @@ $small = array_shift($price);
       <input type="submit" value="Validation" name="validation">
     </section>
 
-
-     
-    
   </form>
 
- 
-  
 </body>
 </html>
