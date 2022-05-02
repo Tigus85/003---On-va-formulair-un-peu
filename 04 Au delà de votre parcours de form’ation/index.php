@@ -104,12 +104,6 @@ $small = array_shift($price);
       </div>
       <div class="blockTotal">
         <h4>Code Promo</h4>
-        <input type="text" name="promo" >
-      </div>
-      <div class="blockTotal" >
-        <h3>Total</h3>
-        <div>
-  
         <?php
 
           $valideReduc = [
@@ -117,14 +111,33 @@ $small = array_shift($price);
             "TROP_BIEN" => $subTotal * 30 / 100,
             "MAIS_LE_PERE_NOEL_EXISTE" => $small * 75 / 100
           ];
+
         
-  
           foreach($valideReduc as $reduc => $percent){
             if($_GET['promo'] === $reduc ){
               $promo = $percent;
             }
           }
-    
+
+          if($promo > 0){
+            ?>
+            <div class="sizePromo"> <?= $_GET['promo'] ?>  </div>
+            <?php
+          } else {
+            ?>
+            <input class="sizePromo" type="text" name="promo" >
+            <?php
+          }
+
+
+        ?>
+      </div>
+      <div class="blockTotal" >
+        <h3>Total</h3>
+        <div>
+  
+        <?php
+
           $total = $subTotal - $promo;
           echo $total . " €";
         ?>
